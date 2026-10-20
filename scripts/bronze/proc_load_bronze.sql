@@ -34,6 +34,7 @@ BEGIN
         WITH (
             FORMAT = 'CSV',
             FIRSTROW = 2,
+            FIELDTERMINATOR = ',',
             TABLOCK
         );
 
@@ -62,6 +63,7 @@ BEGIN
         WITH (
             FORMAT = 'CSV',
             FIRSTROW = 2,
+            FIELDTERMINATOR = ',',
             TABLOCK
         );
 
@@ -90,6 +92,7 @@ BEGIN
         WITH (
             FORMAT = 'CSV',
             FIRSTROW = 2,
+            FIELDTERMINATOR = ',',
             TABLOCK
         );
 
@@ -118,6 +121,7 @@ BEGIN
         WITH (
             FORMAT = 'CSV',
             FIRSTROW = 2,
+            FIELDTERMINATOR = ',',
             TABLOCK
         );
 
@@ -146,6 +150,7 @@ BEGIN
         WITH (
             FORMAT = 'CSV',
             FIRSTROW = 2,
+            FIELDTERMINATOR = ',',
             TABLOCK
         );
 
@@ -174,6 +179,7 @@ BEGIN
         WITH (
             FORMAT = 'CSV',
             FIRSTROW = 2,
+            FIELDTERMINATOR = ',',
             TABLOCK
         );
 
@@ -192,12 +198,17 @@ BEGIN
 
         PRINT '==========================================';
         PRINT 'Bronze Layer Full Load Completed Successfully';
+
         PRINT 'Total Batch Time: '
             + CAST(
-                DATEDIFF(SECOND, @batch_start_time, @batch_end_time)
-                AS NVARCHAR(10)
+                DATEDIFF(
+                    SECOND,
+                    @batch_start_time,
+                    @batch_end_time
+                ) AS NVARCHAR(10)
             )
             + ' seconds';
+
         PRINT '==========================================';
 
     END TRY
@@ -205,11 +216,15 @@ BEGIN
     BEGIN CATCH
         PRINT '==========================================';
         PRINT 'ERROR OCCURRED DURING BRONZE LOAD';
+
         PRINT 'Error Message: ' + ERROR_MESSAGE();
+
         PRINT 'Error Number: '
             + CAST(ERROR_NUMBER() AS NVARCHAR(10));
+
         PRINT 'Error State: '
             + CAST(ERROR_STATE() AS NVARCHAR(10));
+
         PRINT '==========================================';
     END CATCH
 END;
